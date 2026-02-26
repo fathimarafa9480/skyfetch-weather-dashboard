@@ -1,12 +1,55 @@
 
 // Your OpenWeatherMap API Key
-const API_KEY = '7da5d60962cc54bce0bc071a3a84e684';  // Replace with your actual API key
-const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
+function weatherApp() {
+this.API_KEY = '7da5d60962cc54bce0bc071a3a84e684';  // Replace with your actual API key
+this.API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
 /* PART 2: UI ELEMENT REFERENCES*/
-const searchBtn = document.getElementById('search-btn');
-const cityInput = document.getElementById('city-input');
-const displayArea = document.getElementById('weather-display');
+this.searchBtn = document.getElementById('search-btn');
+this.cityInput = document.getElementById('city-input');
+this.displayArea = document.getElementById('weather-display');
+
+this.init();
+}
+
+WeatherApp.prototype.init = function() {
+    // TODO: Add click event listener to search button
+    // Use .bind(this) to maintain context
+    this.searchBtn.addEventListener('click', this.handleSearch.bind(this));
+    
+    // TODO: Add keypress event listener to input
+    // Listen for Enter key
+    this.cityInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            this.handleSearch();
+        }
+    });
+    
+    // TODO: Display welcome message
+    // Call a method like this.showWelcome()
+    this.showWelcome();
+}
+
+WeatherApp.prototype.showWelcome = function() {
+    // TODO: Create welcome HTML
+    const welcomeHTML = `
+        <div class="welcome-message">
+            <!-- TODO: Add icon or emoji -->
+            <!-- TODO: Add welcome heading -->
+            <!-- TODO: Add instruction text -->
+        </div>
+
+        <div class="welcome-message" style="text-align: center; padding: 20px;">
+            <div style="font-size: 48px;">🌤️</div>
+            <h2> Welcome to crative App </h2>
+            <p>Enter a city name in the search box above to check the current weather.</p>
+        </div>
+    `;
+    
+    // TODO: Display in weather display area
+    // this.weatherDisplay.innerHTML = welcomeHTML;
+};
+
 
 /* PART 2: REFACTORED FETCH FUNCTION (Async/Await)*/
 async function getWeather(city) {
@@ -86,15 +129,6 @@ function showError(message) {
 
 /* PART 2: EVENT LISTENERS*/
 
-searchBtn.addEventListener('click', () => {
-    handleSearch();
-});
-
-cityInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        handleSearch();
-    }
-});
 
 function handleSearch() {
     const city = cityInput.value.trim();
